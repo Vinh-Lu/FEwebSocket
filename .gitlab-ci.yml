@@ -1,0 +1,190 @@
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME  == "dev"'
+      changes:
+      - .gitlab-ci.yml
+      when: never
+    - when: always
+    
+cache:
+  key: $CI_COMMIT_REF_NAME
+  paths:
+    - cache/ci_init_env
+    - cache/ci_script
+
+stages:
+  - initialize
+  - fetch-config
+  - fetch-helm
+  - build-image
+  - deploy
+
+variables:
+  PROJECT: futa-busline-web
+  ENVIRONMENT: dev
+  NAMESPACE: dev
+  HELM_CHART: deployment
+  APP_NAME: futa-busline-web-phatnguoi
+  APP_CONFIG_FILE_NAME: "app.env"
+  APP_CONFIG_REPO_NAME: "web-dev"
+  CI_CACHE_DIR: "cache"
+  CI_INIT_ENV_CACHE_RELATIVE: "${CI_CACHE_DIR}/ci_init_env/init_env"
+  CI_SCRIPT_CACHE_RELATIVE: "${CI_CACHE_DIR}/ci_script/init_env"  
+  CI_INIT_ENV_CACHE: "${CI_PROJECT_DIR}/${CI_CACHE_DIR}/ci_init_env/init_env"
+
+before_script:
+  - git config --local user.name "Gitlab runner"
+  - git config --local user.email "gitlabrunner@futa.vn"
+
+# templates:
+.template_initialize_job: &template_initialize_job
+  stage: initialize
+  script:
+    - mkdir -p cache/ci_init_env
+    - mkdir -p cache/ci_script
+    - rm -f ${CI_INIT_ENV_CACHE_RELATIVE}
+    - rm -f cache/ci_script/gke-ci-cd.sh
+    - git clone $GITLAB_SSH_REPO_URL/system/gitlab-script.git && cd gitlab-script && chmod +x gke-ci-cd.sh && source ./gke-ci-cd.sh initialize && cd ../
+    - cp gitlab-script/gke-ci-cd.sh cache/ci_script
+
+.template_fetch_config_job: &template_fetch_config_job
+  stage: fetch-config
+  script:
+    - source ${CI_INIT_ENV_CACHE_RELATIVE}
+    - source ./cache/ci_script/gke-ci-cd.sh fetch_config
+
+.template_fetch_helm_job: &template_fetch_helm_job
+  stage: fetch-helm
+  script:
+    - source ${CI_INIT_ENV_CACHE_RELATIVE}
+    - source ./cache/ci_script/gke-ci-cd.sh fetch_helm
+
+.template_build_job: &template_build_job
+  stage: build-image
+  script:
+    - source ${CI_INIT_ENV_CACHE_RELATIVE}
+    - cp $APP_CONFIG_FILE $APP_CONFIG_DIR_FILE_NAME
+    - cat $APP_CONFIG_DIR_FILE_NAME
+    - source ./cache/ci_script/gke-ci-cd.sh build_docker_image_web
+
+.template_deploy_job: &template_deploy_job
+  stage: deploy
+  script:
+    - source ${CI_INIT_ENV_CACHE_RELATIVE}
+    - source ./cache/ci_script/gke-ci-cd.sh deploy
+
+# Build CI-CD PROD
+initialize:
+  <<: *template_initialize_job
+  tags:
+    - centos-shared-prod
+  only:
+    - master
+
+fetch-config:
+  <<: *template_fetch_config_job
+  tags:
+    - centos-shared-prod
+  only:
+    - master
+
+fetch-helm:
+  <<: *template_fetch_helm_job
+  tags:
+    - centos-shared-prod
+  only:
+    - master
+
+build-image:
+  <<: *template_build_job
+  variables:
+    APP_CONFIG_DIR_FILE_NAME: "environments/.env.production"
+  tags:
+    - centos-shared-prod
+  only:
+    - master
+
+deploy:
+  <<: *template_deploy_job
+  tags:
+    - centos-shared-prod
+  only:
+    - master
+
+# Build CI-CD STAGING
+initialize-staging:
+  <<: *template_initialize_job
+  tags:
+    - centos-shared-staging
+  only:
+    - staging
+
+fetch-config-staging:
+  <<: *template_fetch_config_job
+  tags:
+    - centos-shared-staging
+  only:
+    - staging
+
+fetch-helm-staging:
+  <<: *template_fetch_helm_job
+  tags:
+    - centos-shared-staging
+  only:
+    - staging
+
+build-image-staging:
+  <<: *template_build_job
+  variables:
+    APP_CONFIG_DIR_FILE_NAME: "environments/.env.staging"
+  tags:
+    - centos-shared-staging
+  only:
+    - staging
+
+deploy-staging:
+  <<: *template_deploy_job
+  tags:
+    - centos-shared-staging
+  only:
+    - staging
+
+
+# Build CI-CD DEV
+initialize-dev:
+  <<: *template_initialize_job
+  tags:
+    - shared-dev-on-prem
+  only:
+    - dev
+
+fetch-config-dev:
+  <<: *template_fetch_config_job
+  tags:
+    - shared-dev-on-prem
+  only:
+    - dev
+
+fetch-helm-dev:
+  <<: *template_fetch_helm_job
+  tags:
+    - shared-dev-on-prem
+  only:
+    - dev
+
+build-image-dev:
+  <<: *template_build_job
+  variables:
+    APP_CONFIG_DIR_FILE_NAME: "environments/.env.development"
+  tags:
+    - shared-dev-on-prem
+  only:
+    - dev
+
+deploy-dev:
+  <<: *template_deploy_job
+  tags:
+    - shared-dev-on-prem
+  only:
+    - dev
+

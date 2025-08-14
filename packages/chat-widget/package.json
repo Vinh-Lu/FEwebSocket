@@ -1,0 +1,46 @@
+{
+  "name": "@futa/chat-widget",
+  "version": "1.0.0",
+  "description": "Project-based chat widget for FUTA applications",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "build:types": "tsc --emitDeclarationOnly",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "chat",
+    "widget",
+    "react",
+    "antd",
+    "customer-support"
+  ],
+  "author": "FUTA Team",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0",
+    "antd": ">=5.0.0"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.10",
+    "date-fns": "^4.1.0",
+    "@ant-design/icons": "^5.5.1"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.0",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "rollup": "^3.20.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "typescript": "^5.0.0"
+  }
+}

@@ -1,0 +1,409 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 16 87% 62%;
+    --primary-foreground: 355.7 100% 97.3%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 16 87% 62%;
+    --radius: 0.5rem;
+    --sidebar-primary: 270 70% 40%;
+    --sidebar-primary-foreground: 0 0% 100%;
+
+    /* Font configuration variables */
+    --font-family: Segoe UI, sans-serif;
+    --font-size: 14px;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 16 87% 62%;
+    --primary-foreground: 355.7 100% 97.3%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 16 87% 62%;
+    --sidebar-primary: 270 70% 40%;
+    --sidebar-primary-foreground: 0 0% 100%;
+  }
+}
+
+.ant-form-item .ant-form-item-explain-error {
+  @apply flex justify-end text-[10px];
+}
+.ant-form-item {
+  margin-bottom: 20px !important;
+}
+
+.ant-modal.modal-wrapper .ant-modal-content {
+  @apply !p-0 rounded-t-xl;
+}
+
+.modal-wrapper .ant-modal-title {
+  @apply bg-primary !text-white p-4 rounded-t-xl;
+}
+
+.ant-modal.modal-wrapper .ant-modal-header {
+  @apply !m-0 rounded-t-2xl;
+}
+.ant-drawer-content-wrapper .ant-drawer-header {
+  @apply bg-primary;
+}
+.filter-form .ant-form-item {
+  @apply sm:!m-0 !mb-4;
+}
+.highlight {
+  background: linear-gradient(
+    90deg,
+    rgb(250, 253, 228) 0%,
+    rgb(250, 253, 228) 100%
+  ) !important;
+  background-position: left !important;
+  border: 1px dashed rgb(190, 214, 8) !important;
+}
+
+.ant-select-item-option-content {
+  white-space: normal !important;
+}
+
+.ant-table-cell {
+  padding: 5px 16px !important;
+}
+.card-mobile-list .ant-card-actions > li {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Apply font configuration globally */
+body,
+.ant-typography,
+.ant-form-item-label,
+.ant-input,
+.ant-select,
+.ant-button,
+.ant-table,
+.ant-menu,
+.ant-dropdown-menu {
+  font-family: var(--font-family) !important;
+  font-size: var(--font-size) !important;
+}
+
+/* Override for headings to be slightly larger */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.ant-typography h1,
+.ant-typography h2,
+.ant-typography h3,
+.ant-typography h4,
+.ant-typography h5,
+.ant-typography h6 {
+  font-family: var(--font-family) !important;
+}
+
+/* Virtual Pet SVG Animations */
+@keyframes tailWag {
+  0% {
+    transform: rotate(-15deg);
+  }
+  100% {
+    transform: rotate(15deg);
+  }
+}
+
+@keyframes legMove {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-3px) rotate(5deg);
+  }
+  50% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-1px) rotate(-5deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+@keyframes catWalk {
+  0% {
+    transform: translateY(0px) scaleY(1);
+  }
+  25% {
+    transform: translateY(-4px) scaleY(1.1);
+  }
+  50% {
+    transform: translateY(-1px) scaleY(0.95);
+  }
+  75% {
+    transform: translateY(-3px) scaleY(1.05);
+  }
+  100% {
+    transform: translateY(0px) scaleY(1);
+  }
+}
+
+@keyframes dogWalk {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  20% {
+    transform: translateY(-2px) rotate(3deg);
+  }
+  40% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  60% {
+    transform: translateY(-2px) rotate(-3deg);
+  }
+  80% {
+    transform: translateY(-1px) rotate(1deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+@keyframes birdHop {
+  0% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.1);
+  }
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+}
+
+@keyframes hamsterWaddle {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-1px) rotate(2deg);
+  }
+  50% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-1px) rotate(-2deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+@keyframes stepLeft {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes stepRight {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  25% {
+    transform: translateY(-3px);
+  }
+  75% {
+    transform: translateY(-1px);
+  }
+}
+
+@keyframes bodyBob {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes earFlap {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes wingFlap {
+  0% {
+    transform: rotate(-10deg);
+  }
+  100% {
+    transform: rotate(10deg);
+  }
+}
+
+@keyframes cheekPuff {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+@keyframes petBounce {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes petWalk {
+  0% {
+    transform: translateX(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateX(2px) rotate(1deg);
+  }
+  50% {
+    transform: translateX(0px) rotate(0deg);
+  }
+  75% {
+    transform: translateX(-2px) rotate(-1deg);
+  }
+  100% {
+    transform: translateX(0px) rotate(0deg);
+  }
+}
+
+.virtual-pet-moving {
+  animation: petWalk 0.8s ease-in-out infinite;
+}
+
+.virtual-pet-idle {
+  animation: petBounce 3s ease-in-out infinite;
+}
+
+/* Virtual Pet Drag & Drop Styles */
+.virtual-pet-dragging {
+  transform: scale(1.1) !important;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+  z-index: 1001 !important;
+}
+
+.virtual-pet-drag-overlay {
+  background: rgba(59, 130, 246, 0.1);
+  border: 2px dashed #3b82f6;
+  border-radius: 12px;
+}
+
+@keyframes dragPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+/* Bird Flying Animations */
+@keyframes birdFly {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-15px) rotate(-2deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+@keyframes wingFlapFast {
+  0%,
+  100% {
+    transform: scaleY(1) scaleX(1);
+  }
+  50% {
+    transform: scaleY(0.8) scaleX(1.1);
+  }
+}
+
+@keyframes soarGlide {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  33% {
+    transform: translateY(-8px) rotate(1deg) scale(1.02);
+  }
+  66% {
+    transform: translateY(-3px) rotate(-1deg) scale(0.98);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+}
+
+.bird-flying {
+  animation: birdFly 2s ease-in-out infinite;
+}
+
+.bird-wings-flying {
+  animation: wingFlapFast 0.3s ease-in-out infinite;
+}
+
+.bird-soaring {
+  animation: soarGlide 3s ease-in-out infinite;
+}
