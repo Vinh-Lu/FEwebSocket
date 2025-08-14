@@ -83,7 +83,7 @@ const markAllMessagesAsRead = (sessionId: string) => {
 export const useChatWidget = (projectConfig: ProjectConfig) => {
   const [isOpen,setIsOpen] = useState(false);
   const [isMinimized,setIsMinimized] = useState(false);
-  const [sessionId] = useState(() => getOrCreateSessionId(projectConfig.projectKey));
+  const [sessionId] = useState(() => getOrCreateSessionId());
   const [messages,setMessages] = useState<ChatWidgetMessage[]>([]);
   const [unreadCount,setUnreadCount] = useState(0);
   const [isConnected,setIsConnected] = useState(false);

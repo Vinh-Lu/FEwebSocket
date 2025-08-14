@@ -10,7 +10,7 @@ export const initFontConfigDB = async () => {
     };
 
     request.onupgradeneeded = (event) => {
-      const db = event.target?.result;
+      const db = (event.target as IDBOpenDBRequest).result;
 
       // Create configs object store if it doesn't exist
       if (!db.objectStoreNames.contains('configs')) {

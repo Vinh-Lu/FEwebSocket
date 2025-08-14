@@ -34,13 +34,14 @@ const ChatMessages = ({ chatId }) => {
         });
 
         // Add highlight effect with box-shadow instead of changing background
-        const originalBoxShadow = element.style.boxShadow;
-        element.style.boxShadow = '0 0 0 3px rgba(255, 193, 7, 0.5), 0 0 20px rgba(255, 193, 7, 0.3)';
-        element.style.transition = 'box-shadow 0.3s ease';
+        const el = element as HTMLElement;
+        const originalBoxShadow = el.style.boxShadow;
+        el.style.boxShadow = '0 0 0 3px rgba(255, 193, 7, 0.5), 0 0 20px rgba(255, 193, 7, 0.3)';
+        el.style.transition = 'box-shadow 0.3s ease';
 
         setTimeout(() => {
-          element.style.boxShadow = originalBoxShadow;
-          element.style.transition = '';
+          el.style.boxShadow = originalBoxShadow;
+          el.style.transition = '';
         },2000);
         break;
       }

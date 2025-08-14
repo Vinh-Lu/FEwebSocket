@@ -15,10 +15,6 @@ import { useChat } from './ChatContext';
 
 const { Text,Title } = Typography;
 
-interface ChatHeaderProps {
-  chat: Chat;
-  users?: any[];
-}
 
 const ChatHeader = ({ chat,users = [] }) => {
   const { setCurrentChat } = useChat();

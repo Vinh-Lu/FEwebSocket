@@ -3,6 +3,7 @@
 import { useCallback } from 'react';
 
 interface Message {
+  projectKey: string;
   id: string;
   text: string;
   sender: 'user' | 'assistant';

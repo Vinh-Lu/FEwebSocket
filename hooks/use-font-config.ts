@@ -3,19 +3,18 @@
 import { useEffect,useState } from 'react';
 import { useGenericIndexedDBStore } from './useGenericIndexedDBStore';
 import { DEFAULT_FONT_CONFIG } from '@/utils/font-config-constants';
-import { SavedFontData,FontThemeConfig } from '@/types/font-config';
 
 export const useFontConfig = () => {
-  const [themeConfig,setThemeConfig] = useState<FontThemeConfig>(DEFAULT_FONT_CONFIG);
+  const [themeConfig,setThemeConfig] = useState(DEFAULT_FONT_CONFIG);
 
-  const { getByKey } = useGenericIndexedDBStore<SavedFontData>(
+  const { getByKey } = useGenericIndexedDBStore(
     'font-config',
     'configs',
     'id'
   );
 
   // Apply config to document CSS variables (for Tailwind compatibility)
-  const applyConfigToDocument = (config: FontThemeConfig) => {
+  const applyConfigToDocument = (config: any) => {
     const { fontFamily,fontSize,colorPrimary } = config.token;
 
     // Set CSS variables for Tailwind and custom CSS
