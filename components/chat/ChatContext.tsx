@@ -45,7 +45,7 @@ export const ChatProvider = ({ children }) => {
     connectToProject,
     disconnectFromProject,
     getProjectConnections
-  } = useWebSocketConnections(dbInitialized,chats,handleUserMessage,activeProductKeys);
+  } = useWebSocketConnections(dbInitialized,chats,handleUserMessage);
 
   // Chat operations hook
   const {
